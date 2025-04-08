@@ -3,10 +3,20 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: `
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styles: [`
+    main {
+      min-height: 100vh;
+      background-color: #f5f6fa;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'hello-word';
+  title = 'GitHub Repositories';
 }

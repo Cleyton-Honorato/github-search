@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="search-container">
+    <h1>Buscar Repositórios do GitHub</h1>
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="username" 
+        placeholder="Digite o nome do usuário do GitHub"
+        (keyup.enter)="searchRepositories()"
+      >
+      <button (click)="searchRepositories()" [disabled]="loading">
+        {{ loading ? 'Buscando...' : 'Buscar' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="repositories-grid" *ngIf="repositories.length > 0">
+    <div class="repo-card" *ngFor="let repo of repositories">
+      <h3>{{ repo.name }}</h3>
+      <p class="description">{{ repo.description || 'Sem descrição' }}</p>
+      <div class="repo-info">
+        <span class="language" *ngIf="repo.language">
+          <i class="fas fa-code"></i> {{ repo.language }}
+        </span>
+        <span class="stars">
+          <i class="fas fa-star"></i> {{ repo.stargazers_count }}
+        </span>
+      </div>
+      <a [href]="repo.html_url" target="_blank" class="repo-link">
+        Ver no GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="!loading && repositories.length === 0 && !error">
+    Digite um nome de usuário para buscar repositórios
+  </div>
+</div> 
